@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 Bucket Links</title>
+</head>
+<body>
+    <h1>Add S3 Bucket URL</h1>
+    <form id="urlForm">
+        <label for="bucketUrl">S3 Bucket URL:</label><br>
+        <input type="text" id="bucketUrl" name="bucketUrl" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Start of Stored S3 Bucket URLs Section -->
+    <h2>Stored S3 Bucket URLs:</h2>
+    <ul id="urlList">
+        
+    </ul>
+    <!-- End of Stored S3 Bucket URLs Section -->
+
+    <script>
+        // JavaScript to handle form submission and displaying URLs
+        document.getElementById('urlForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let urlInput = document.getElementById('bucketUrl');
+            let url = urlInput.value.trim();
+            if (isValidS3Url(url)) {
+                let listItem = document.createElement('li');
+                let link = document.createElement('a');
+                link.href = url;
+                link.textContent = url;
+                link.target = "_blank"; // Open link in a new tab
+                listItem.appendChild(link);
+                document.getElementById('urlList').appendChild(listItem);
+                urlInput.value = '';
+            } else {
+                alert('Please enter a valid S3 Bucket URL starting with "s3://".');
+            }
+        });
+
+        // Function to validate S3 Bucket URL
+        function isValidS3Url(url) {
+            // Example validation: Check if URL starts with "s3://"
+            return url.startsWith('s3://');
+        }
+    </script>
+</body>
+</html>
