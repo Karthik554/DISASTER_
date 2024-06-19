@@ -29,42 +29,21 @@
             if (isValidS3Url(url)) {
                 let listItem = document.createElement('li');
                 let link = document.createElement('a');
-                link.href = "#"; // Set a placeholder href for click handling
+                link.href = url;
                 link.textContent = url;
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    handleS3Navigation(url); // Handle S3 URL navigation
-                });
+                link.target = "_blank"; // Open link in a new tab
                 listItem.appendChild(link);
                 document.getElementById('urlList').appendChild(listItem);
                 urlInput.value = '';
             } else {
-                alert('Please enter a valid S3 Bucket URL starting with "s3://".');
+                alert('Please enter a valid S3 Bucket URL starting with "https://".');
             }
         });
 
         // Function to validate S3 Bucket URL
         function isValidS3Url(url) {
-            // Example validation: Check if URL starts with "s3://"
-            return url.startsWith('s3://');
-        }
-
-        // Function to handle S3 URL navigation
-        function handleS3Navigation(url) {
-            // Implement logic to open the S3 URL in a new tab or appropriate tool
-            // For demonstration, let's open in a new tab (replace with actual logic)
-            window.open('https://s3.console.aws.amazon.com/s3/buckets/' + extractBucketName(url), '_blank');
-        }
-
-        // Function to extract bucket name from S3 URL
-        function extractBucketName(url) {
-            // Assuming S3 URL format is s3://bucket-name/path/to/file
-            let parts = url.split('/');
-            if (parts.length >= 3 && parts[0] === 's3:' && parts[1] === '' && parts[2] !== '') {
-                return parts[2]; // Return bucket name
-            } else {
-                return ''; // Handle invalid or unexpected format
-            }
+            // Example validation: Check if URL starts with "https://"
+            return url.startsWith('https://');
         }
     </script>
 </body>
